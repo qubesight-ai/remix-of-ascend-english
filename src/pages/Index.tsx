@@ -212,18 +212,22 @@ const Index = () => {
         <DemoBanner />
         {/* Welcome Section */}
         <div className="mb-8 animate-fade-in">
-          <h1 className="font-display font-bold text-3xl md:text-4xl text-foreground mb-2">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#e1f8fb]/90 border border-white/90 shadow-[inset_0_1px_1px_rgba(255,255,255,0.95),0_2px_8px_rgba(38,198,218,0.12)] mb-3">
+            <span className="w-2 h-2 rounded-full bg-[#26c6da] animate-pulse" />
+            <span className="text-xs font-display font-bold uppercase tracking-wider text-[#006874]">Luma — Learn brighter.</span>
+          </div>
+          <h1 className="font-display font-extrabold text-3xl md:text-5xl text-[#0b3b4a] mb-2 tracking-tight drop-shadow-sm">
             Hello, {getGreetingName()}! 👋
           </h1>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-[#3c494b] font-medium text-lg">
             Continue your path to English fluency
           </p>
         </div>
 
         {/* Interactive Level Selector */}
-        <div className="mb-6 p-6 rounded-2xl bg-card border shadow-card animate-slide-up" style={{ animationDelay: '0.1s' }}>
+        <div className="mb-8 p-6 md:p-8 rounded-3xl aero-glass border-white/90 shadow-card animate-slide-up" style={{ animationDelay: '0.1s' }}>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-display font-semibold text-lg">Explore CEFR Levels</h2>
+            <h2 className="font-display font-bold text-xl text-[#0b3b4a]">Explore CEFR Levels</h2>
           </div>
           <InteractiveLevelSelector 
             selectedLevel={selectedLevel}
@@ -248,19 +252,19 @@ const Index = () => {
           <div className="lg:col-span-2 space-y-8">
             {/* Today's Lesson */}
             <section className="animate-slide-up" style={{ animationDelay: '0.3s' }}>
-              <h2 className="font-display font-semibold text-lg mb-4">Today's Lesson</h2>
+              <h2 className="font-display font-bold text-xl text-[#0b3b4a] mb-4">Today's Lesson</h2>
               <TodayLesson />
             </section>
 
             {/* AI Tutor */}
             <section className="animate-slide-up" style={{ animationDelay: '0.4s' }}>
-              <h2 className="font-display font-semibold text-lg mb-4">Practice with AI</h2>
+              <h2 className="font-display font-bold text-xl text-[#0b3b4a] mb-4">Practice with AI</h2>
               <AITutorPreview />
             </section>
 
             {/* Modules Grid */}
             <section className="animate-slide-up" style={{ animationDelay: '0.5s' }}>
-              <h2 className="font-display font-semibold text-lg mb-4">Learning Modules</h2>
+              <h2 className="font-display font-bold text-xl text-[#0b3b4a] mb-4">Learning Modules</h2>
               <div className="grid sm:grid-cols-2 gap-4">
                 {modules.map((module) => (
                   <ModuleCard
@@ -281,7 +285,7 @@ const Index = () => {
           <div className="space-y-6 animate-slide-up" style={{ animationDelay: '0.35s' }}>
             {/* Daily Goal Widget */}
             <section>
-              <h2 className="font-display font-semibold text-lg mb-4">Your Activity</h2>
+              <h2 className="font-display font-bold text-xl text-[#0b3b4a] mb-4">Your Activity</h2>
             <DailyGoalWidget
                 currentStreak={userProgress.currentStreak}
                 bestStreak={userProgress.bestStreak}
@@ -292,36 +296,36 @@ const Index = () => {
             </section>
 
             {/* Quick Tips */}
-            <section className="p-5 rounded-2xl border bg-card">
-              <h3 className="font-display font-semibold mb-3 flex items-center gap-2">
+            <section className="p-6 rounded-3xl aero-glass border-white/85 shadow-card">
+              <h3 className="font-display font-bold text-base text-[#0b3b4a] mb-3 flex items-center gap-2">
                 <span className="text-xl">💡</span>
                 Tip of the Day
               </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                The <span className="font-medium text-foreground">Present Perfect</span> connects the past with the present. Use it when the action has relevance now: 
-                <span className="italic text-primary"> "I have lost my keys"</span> (I still can't find them).
+              <p className="text-sm text-[#3c494b] leading-relaxed">
+                The <span className="font-semibold text-[#0b3b4a]">Present Perfect</span> connects the past with the present. Use it when the action has relevance now: 
+                <span className="italic text-primary font-semibold"> "I have lost my keys"</span> (I still can't find them).
               </p>
             </section>
 
             {/* Recent Errors */}
-            <section className="p-5 rounded-2xl border bg-card">
-              <h3 className="font-display font-semibold mb-3 flex items-center gap-2">
+            <section className="p-6 rounded-3xl aero-glass border-white/85 shadow-card">
+              <h3 className="font-display font-bold text-base text-[#0b3b4a] mb-3 flex items-center gap-2">
                 <span className="text-xl">🎯</span>
                 Areas to Improve
-                <span className="text-xs font-normal text-muted-foreground ml-auto">Last 7 days</span>
+                <span className="text-xs font-normal text-[#3c494b]/80 ml-auto">Last 7 days</span>
               </h3>
               {learningErrors.length > 0 ? (
                 <div className="space-y-2">
                   {learningErrors.map((item) => (
-                    <div key={item.error_type} className="flex items-center justify-between py-2 px-3 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors cursor-pointer"
+                    <div key={item.error_type} className="flex items-center justify-between py-2.5 px-3.5 rounded-2xl bg-white/70 border border-white/80 hover:bg-white transition-all cursor-pointer shadow-sm hover:shadow-aqua-sm"
                       onClick={() => navigate('/error-history')}>
-                      <span className="text-sm font-medium">{item.error_type}</span>
-                      <span className="text-xs text-muted-foreground">{item.count} {item.count === 1 ? 'error' : 'errors'}</span>
+                      <span className="text-sm font-semibold text-[#0b3b4a]">{item.error_type}</span>
+                      <span className="text-xs font-bold text-primary px-2 py-0.5 rounded-full bg-[#e1f8fb] border border-white">{item.count} {item.count === 1 ? 'error' : 'errors'}</span>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-muted-foreground">No errors recorded yet. Start practicing!</p>
+                <p className="text-sm text-[#3c494b]">No errors recorded yet. Start practicing!</p>
               )}
             </section>
           </div>

@@ -1,4 +1,4 @@
-# Remix of Ascend English
+# Luma - Learn brighter.
 
 # 🎯 Propósito Integral de la App de Inglés Autodidacta
 

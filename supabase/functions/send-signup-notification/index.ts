@@ -44,7 +44,7 @@ const handler = async (req: Request): Promise<Response> => {
     });
 
     const emailResponse = await resend.emails.send({
-      from: `Tem Teaching <${FROM_EMAIL}>`,
+      from: `Luma <${FROM_EMAIL}>`,
       to: [ADMIN_EMAIL],
       subject: `🆕 New Signup: ${displayName || userEmail}`,
       html: `
@@ -58,10 +58,11 @@ const handler = async (req: Request): Promise<Response> => {
           <div style="max-width: 500px; margin: 0 auto; background-color: white; border-radius: 12px; padding: 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
             
             <div style="text-align: center; margin-bottom: 24px;">
-              <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #3b82f6, #8b5cf6); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
-                <span style="font-size: 28px;">📚</span>
+              <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #00acc1, #26c6da); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 28px;">✨</span>
               </div>
               <h1 style="margin: 0; color: #18181b; font-size: 22px;">New User Signup</h1>
+              <p style="margin: 4px 0 0 0; color: #00acc1; font-size: 13px; font-weight: 600;">Luma — Learn brighter.</p>
             </div>
 
             <div style="background-color: #fafafa; border-radius: 8px; padding: 20px; margin-bottom: 24px;">
@@ -88,13 +89,13 @@ const handler = async (req: Request): Promise<Response> => {
             </div>
 
             <div style="text-align: center;">
-              <a href="${adminUrl}" style="display: inline-block; background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 600; font-size: 14px;">
+              <a href="${adminUrl}" style="display: inline-block; background: linear-gradient(135deg, #00acc1, #26c6da); color: white; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 600; font-size: 14px;">
                 Review & Approve User
               </a>
             </div>
 
             <p style="text-align: center; color: #a1a1aa; font-size: 12px; margin-top: 24px; margin-bottom: 0;">
-              This notification was sent from Tem Teaching
+              This notification was sent from Luma — Learn brighter.
             </p>
           </div>
         </body>

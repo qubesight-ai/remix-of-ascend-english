@@ -166,19 +166,20 @@ export default function Auth() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-info flex items-center justify-center mx-auto mb-4">
-            <BookOpen className="w-8 h-8 text-white" />
+          <div className="w-16 h-16 rounded-3xl orb-aqua flex items-center justify-center mx-auto mb-4 shadow-aqua relative overflow-hidden group">
+            <span className="text-white font-display font-black text-3xl drop-shadow-md">L</span>
+            <div className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-white blur-[0.4px] opacity-90 animate-pulse"></div>
           </div>
-          <h1 className="font-display font-bold text-2xl text-foreground">Tem Teaching</h1>
-          <p className="text-muted-foreground">Your English learning platform</p>
+          <h1 className="font-display font-black text-3xl text-foreground text-shadow-sm tracking-tight">Luma</h1>
+          <p className="text-primary font-bold text-sm mt-0.5">Learn brighter.</p>
         </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>
+        <Card className="aero-card rounded-3xl overflow-hidden shadow-aqua border border-white/90">
+          <CardHeader className="text-center pb-4 border-b border-white/40 bg-white/30">
+            <CardTitle className="font-display font-bold text-xl text-foreground">
               {isForgotPassword ? 'Reset Password' : isLogin ? 'Sign In' : 'Create Account'}
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-xs font-medium text-muted-foreground">
               {isForgotPassword
                 ? 'Enter your email to receive a reset link'
                 : isLogin
@@ -186,29 +187,29 @@ export default function Auth() {
                 : 'Create an account to save your progress'}
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6 sm:p-8">
             {isForgotPassword ? (
               <form onSubmit={handleForgotPassword} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email" className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Email</Label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-primary" />
                     <Input
                       id="email"
                       type="email"
                       placeholder="your@email.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="pl-10"
+                      className="pl-10 rounded-full bg-white/80 border-white/90 shadow-inner h-11"
                       disabled={loading}
                     />
                   </div>
                   {errors.email && (
-                    <p className="text-sm text-destructive">{errors.email}</p>
+                    <p className="text-xs font-bold text-destructive">{errors.email}</p>
                   )}
                 </div>
 
-                <Button type="submit" className="w-full" disabled={loading}>
+                <Button type="submit" className="w-full btn-gel-aqua rounded-full py-6 font-bold text-white shadow-aqua-sm" disabled={loading}>
                   {loading ? (
                     <>
                       <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -219,10 +220,10 @@ export default function Auth() {
                   )}
                 </Button>
 
-                <div className="text-center">
+                <div className="text-center pt-2">
                   <button
                     type="button"
-                    className="text-sm text-primary hover:underline"
+                    className="text-xs font-bold text-primary hover:underline"
                     onClick={() => {
                       setIsForgotPassword(false);
                       setErrors({});
@@ -236,52 +237,52 @@ export default function Auth() {
               <>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email" className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Email</Label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                      <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-primary" />
                       <Input
                         id="email"
                         type="email"
                         placeholder="your@email.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="pl-10"
+                        className="pl-10 rounded-full bg-white/80 border-white/90 shadow-inner h-11"
                         disabled={loading}
                       />
                     </div>
                     {errors.email && (
-                      <p className="text-sm text-destructive">{errors.email}</p>
+                      <p className="text-xs font-bold text-destructive">{errors.email}</p>
                     )}
                   </div>
 
                   {!isLogin && (
                     <div className="space-y-2">
-                      <Label htmlFor="displayName">Username</Label>
+                      <Label htmlFor="displayName" className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Username</Label>
                       <div className="relative">
-                        <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                        <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-primary" />
                         <Input
                           id="displayName"
                           type="text"
                           placeholder="Your username"
                           value={displayName}
                           onChange={(e) => setDisplayName(e.target.value)}
-                          className="pl-10"
+                          className="pl-10 rounded-full bg-white/80 border-white/90 shadow-inner h-11"
                           disabled={loading}
                         />
                       </div>
                       {errors.displayName && (
-                        <p className="text-sm text-destructive">{errors.displayName}</p>
+                        <p className="text-xs font-bold text-destructive">{errors.displayName}</p>
                       )}
                     </div>
                   )}
 
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <Label htmlFor="password">Password</Label>
+                      <Label htmlFor="password" className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Password</Label>
                       {isLogin && (
                         <button
                           type="button"
-                          className="text-xs text-primary hover:underline"
+                          className="text-xs font-bold text-primary hover:underline"
                           onClick={() => {
                             setIsForgotPassword(true);
                             setErrors({});
@@ -292,23 +293,23 @@ export default function Auth() {
                       )}
                     </div>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                      <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-primary" />
                       <Input
                         id="password"
                         type="password"
                         placeholder="••••••••"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="pl-10"
+                        className="pl-10 rounded-full bg-white/80 border-white/90 shadow-inner h-11"
                         disabled={loading}
                       />
                     </div>
                     {errors.password && (
-                      <p className="text-sm text-destructive">{errors.password}</p>
+                      <p className="text-xs font-bold text-destructive">{errors.password}</p>
                     )}
                   </div>
 
-                  <Button type="submit" className="w-full" disabled={loading}>
+                  <Button type="submit" className="w-full btn-gel-aqua rounded-full py-6 font-bold text-white shadow-aqua-sm text-sm" disabled={loading}>
                     {loading ? (
                       <>
                         <Loader2 className="w-4 h-4 mr-2 animate-spin" />

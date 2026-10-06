@@ -141,21 +141,21 @@ export function TopicsSidebar() {
   }
 
   return (
-    <Sidebar className="border-r border-sidebar-border">
-      <SidebarHeader className="p-4 border-b border-sidebar-border">
-        <div className="flex items-center gap-2 mb-4">
-          <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-            <Book className="h-4 w-4 text-primary" />
+    <Sidebar className="border-r border-white/70 bg-white/70 backdrop-blur-2xl">
+      <SidebarHeader className="p-4 border-b border-white/60">
+        <div className="flex items-center gap-2.5 mb-4">
+          <div className="w-9 h-9 rounded-2xl orb-aqua flex items-center justify-center shadow-aqua-sm">
+            <Book className="h-4 w-4 text-white drop-shadow-sm" />
           </div>
           <div>
-            <h2 className="font-display font-semibold text-sm">Adventure Map</h2>
-            <p className="text-xs text-muted-foreground">Explore the topics</p>
+            <h2 className="font-display font-bold text-sm text-[#0b3b4a]">Adventure Map</h2>
+            <p className="text-xs text-[#3c494b]/80">Explore the topics</p>
           </div>
         </div>
 
         {/* Level Selector - RPG Style */}
         <div className="space-y-2">
-          <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+          <p className="text-[11px] font-display font-semibold text-[#0b3b4a]/70 uppercase tracking-wider">
             Select Level
           </p>
           <div className="flex flex-wrap gap-1.5">
@@ -164,8 +164,10 @@ export function TopicsSidebar() {
               size="sm"
               onClick={() => handleLevelSelect("ALL")}
               className={cn(
-                "h-7 px-2 text-xs font-medium transition-all",
-                selectedLevel === "ALL" && "bg-gradient-to-r from-level-a1 via-level-b1 to-level-c1 text-white border-0"
+                "h-7 px-3 text-xs font-display font-semibold transition-all rounded-full",
+                selectedLevel === "ALL" 
+                  ? "btn-gel-aqua text-white shadow-aqua-sm" 
+                  : "bg-white/70 border-white/80 hover:bg-white text-[#0b3b4a]"
               )}
             >
               All
@@ -180,10 +182,10 @@ export function TopicsSidebar() {
                   size="sm"
                   onClick={() => handleLevelSelect(level)}
                   className={cn(
-                    "h-7 px-2 text-xs font-medium transition-all gap-1",
+                    "h-7 px-2.5 text-xs font-display font-semibold transition-all gap-1 rounded-full",
                     selectedLevel === level 
-                      ? `${config.bgColor} ${config.color} border-current` 
-                      : "hover:bg-secondary"
+                      ? `${config.bgColor} ${config.color} border-current shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_2px_8px_rgba(38,198,218,0.15)]` 
+                      : "bg-white/70 border-white/80 hover:bg-white text-[#0b3b4a]"
                   )}
                 >
                   <Icon className="h-3 w-3" />
@@ -194,14 +196,14 @@ export function TopicsSidebar() {
           </div>
           {selectedLevel !== "ALL" && (
             <div className={cn(
-              "flex items-center gap-2 px-2 py-1.5 rounded-lg",
+              "flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_2px_6px_rgba(38,198,218,0.1)]",
               levelConfig[selectedLevel].bgColor
             )}>
               {(() => {
                 const Icon = levelConfig[selectedLevel].icon;
-                return <Icon className={cn("h-4 w-4", levelConfig[selectedLevel].color)} />;
+                return <Icon className={cn("h-3.5 w-3.5", levelConfig[selectedLevel].color)} />;
               })()}
-              <span className={cn("text-xs font-medium", levelConfig[selectedLevel].color)}>
+              <span className={cn("text-xs font-display font-semibold", levelConfig[selectedLevel].color)}>
                 {levelConfig[selectedLevel].label} - Level {selectedLevel}
               </span>
             </div>
@@ -220,17 +222,17 @@ export function TopicsSidebar() {
               >
                 <SidebarGroup>
                   <CollapsibleTrigger asChild>
-                    <SidebarGroupLabel className="cursor-pointer hover:bg-secondary/50 rounded-lg px-2 py-2 transition-colors flex items-center justify-between w-full">
+                    <SidebarGroupLabel className="cursor-pointer hover:bg-white/80 rounded-2xl px-3 py-2 transition-all flex items-center justify-between w-full border border-transparent hover:border-white/80 hover:shadow-sm">
                       <div className="flex items-center gap-2">
                         <span className="text-base">{categoryData[0]?.icon}</span>
-                        <span className="font-medium">{categoryName}</span>
-                        <Badge variant="secondary" className="text-[10px] h-4 px-1.5">
+                        <span className="font-display font-semibold text-xs text-[#0b3b4a]">{categoryName}</span>
+                        <Badge variant="secondary" className="text-[10px] h-4 px-2 rounded-full">
                           {categoryData.reduce((acc, d) => acc + d.skills.length, 0)}
                         </Badge>
                       </div>
                       <ChevronDown 
                         className={cn(
-                          "h-4 w-4 transition-transform duration-200",
+                          "h-4 w-4 transition-transform duration-200 text-[#0b3b4a]",
                           expandedCategories.has(categoryName) && "rotate-180"
                         )} 
                       />
@@ -244,7 +246,7 @@ export function TopicsSidebar() {
                           <div key={`${data.level}-${data.category}`}>
                             {selectedLevel === "ALL" && (
                               <div className={cn(
-                                "ml-2 mt-2 mb-1 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider rounded",
+                                "ml-2 mt-2 mb-1 px-2.5 py-0.5 text-[10px] font-display font-bold uppercase tracking-wider rounded-full inline-block border border-white/80",
                                 levelConfig[data.level].bgColor,
                                 levelConfig[data.level].color
                               )}>
@@ -256,14 +258,14 @@ export function TopicsSidebar() {
                                 <SidebarMenuButton
                                   onClick={() => handleTopicClick(data.level, data.category, skill.id)}
                                   className={cn(
-                                    "w-full justify-start text-left py-2 px-3 ml-2 rounded-lg transition-all",
-                                    "hover:bg-primary/10 hover:text-primary",
-                                    location.pathname.includes(skill.id) && "bg-primary/10 text-primary font-medium"
+                                    "w-full justify-start text-left py-2 px-3 ml-2 rounded-xl transition-all",
+                                    "hover:bg-white/90 hover:text-primary hover:shadow-sm",
+                                    location.pathname.includes(skill.id) && "bg-white/90 text-primary font-semibold shadow-[inset_0_1px_1px_rgba(255,255,255,1),0_2px_8px_rgba(38,198,218,0.12)] border border-primary/20"
                                   )}
                                 >
                                   <div className="flex flex-col gap-0.5">
-                                    <span className="text-sm leading-tight">{skill.title}</span>
-                                    <span className="text-[10px] text-muted-foreground line-clamp-1">
+                                    <span className="text-sm font-display font-medium leading-tight text-[#0b3b4a]">{skill.title}</span>
+                                    <span className="text-[10px] text-[#3c494b]/70 line-clamp-1">
                                       {skill.description}
                                     </span>
                                   </div>

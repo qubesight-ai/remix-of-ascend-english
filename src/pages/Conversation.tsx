@@ -611,42 +611,91 @@ export default function Conversation() {
     const scenario = scenarios.find(s => s.id === selectedScenario);
     
     return (
-      <div className="min-h-screen bg-background flex flex-col">
+      <div className="min-h-screen flex flex-col">
         <Header />
         
         <main className="flex-1 container py-4 flex flex-col max-h-[calc(100vh-4rem)]">
-          {/* Chat Header */}
-          <div className="flex items-center gap-4 mb-4">
-            <Button variant="ghost" size="icon" onClick={handleBack}>
-              <ArrowLeft className="w-5 h-5" />
-            </Button>
-            <div className="flex items-center gap-3 flex-1">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-info flex items-center justify-center">
-                <Sparkles className="w-6 h-6 text-white" />
-              </div>
+          {/* Chat Header with Frutiger Aero pills */}
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+            <div className="flex items-center gap-3">
+              <Button variant="ghost" size="icon" onClick={handleBack} className="rounded-full bg-white/70 hover:bg-white border border-white/80 shadow-sm text-[#0b3b4a]">
+                <ArrowLeft className="w-5 h-5" />
+              </Button>
               <div>
-                <h2 className="font-display font-semibold">{scenario?.title}</h2>
-                <p className="text-sm text-muted-foreground">AI Tutor · {scenario?.level} · Powered by AI</p>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#e1f8fb] border border-white text-[11px] font-display font-extrabold text-[#006874] shadow-sm uppercase tracking-wider">
+                    <span className="w-2 h-2 rounded-full bg-[#26c6da] animate-pulse" />
+                    Roleplay Scenario
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#e8ffee] border border-white text-[11px] font-display font-extrabold text-[#1b5e20] shadow-sm uppercase tracking-wider">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#69f0ae] shadow-[0_0_6px_#69f0ae]" />
+                    Interactive Live
+                  </span>
+                </div>
+                <h2 className="font-display font-bold text-xl text-[#0b3b4a]">{scenario?.title}</h2>
               </div>
             </div>
-            <Button
-              size="sm"
-              onClick={() => handleStartScenario(selectedScenario)}
-              disabled={isLoading}
-              className="gap-2 bg-action hover:bg-action-hover text-action-foreground shadow-md hover:shadow-lg"
-              title="Start a new conversation with a different topic"
-            >
-              <RefreshCw className={cn("w-4 h-4", isLoading && "animate-spin")} />
-              New Topic
-            </Button>
+
+            <div className="flex items-center gap-2">
+              <Button
+                size="sm"
+                onClick={() => handleStartScenario(selectedScenario)}
+                disabled={isLoading}
+                className="gap-2 btn-gel-aqua shadow-aqua-sm text-xs font-display font-bold"
+                title="Start a new conversation with a different topic"
+              >
+                <RefreshCw className={cn("w-3.5 h-3.5", isLoading && "animate-spin")} />
+                New Topic
+              </Button>
+            </div>
+          </div>
+
+          {/* Interactive Visualizer Orb Centerpiece */}
+          <div className="py-2 flex flex-col items-center justify-center relative mb-2">
+            <div className="relative flex items-center justify-center">
+              {/* Pulsating ripple rings */}
+              <div className="absolute w-28 h-28 rounded-full border border-primary/30 animate-ripple pointer-events-none" />
+              <div className="absolute w-36 h-36 rounded-full border border-primary/20 animate-ripple pointer-events-none" style={{ animationDelay: '0.8s' }} />
+              
+              {/* 3D Visualizer Orb */}
+              <div className="w-24 h-24 rounded-full orb-aqua border-2 border-white/90 flex items-center justify-center shadow-aqua-lg relative z-10 overflow-hidden">
+                {/* Floating specular bubbles */}
+                <div className="absolute top-2 left-4 w-4 h-2.5 rounded-full bg-white/70 blur-[0.5px]" />
+                <div className="absolute bottom-3 right-5 w-2 h-2 rounded-full bg-white/50" />
+                
+                {/* Audio wave icon / loader */}
+                {isLoading || isSpeaking || isPlaying ? (
+                  <div className="flex items-center gap-1">
+                    <span className="w-1.5 h-6 bg-white rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                    <span className="w-1.5 h-9 bg-white rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                    <span className="w-1.5 h-5 bg-white rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                    <span className="w-1.5 h-8 bg-white rounded-full animate-bounce" style={{ animationDelay: '450ms' }} />
+                  </div>
+                ) : (
+                  <Sparkles className="w-8 h-8 text-white drop-shadow-md" />
+                )}
+              </div>
+            </div>
+
+            {/* Speaking Status Pill */}
+            <div className="mt-2.5 inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-white/90 shadow-[inset_0_1px_1px_rgba(255,255,255,1),0_2px_8px_rgba(38,198,218,0.12)] backdrop-blur-md">
+              <span className={cn(
+                "w-2 h-2 rounded-full",
+                (isPlaying || isSpeaking) ? "bg-[#69f0ae] shadow-[0_0_8px_#69f0ae] animate-pulse" : "bg-[#26c6da]"
+              )} />
+              <span className="text-xs font-display font-semibold text-[#0b3b4a]">
+                AI Partner {isSpeaking || isPlaying ? 'Speaking' : 'Ready'}: <span className="text-primary font-bold">Emma (AI Native)</span>
+              </span>
+              <Volume2 className="w-3.5 h-3.5 text-primary ml-1" />
+            </div>
           </div>
 
           {/* Terminology Box for specialized trainings */}
           <TerminologyBox scenarioId={selectedScenario} />
 
-          {/* Messages */}
-          <Card className="flex-1 overflow-hidden">
-            <CardContent className="p-4 h-full overflow-y-auto">
+          {/* Messages Container */}
+          <Card className="flex-1 overflow-hidden rounded-3xl aero-glass border-white/90 shadow-card">
+            <CardContent className="p-4 md:p-6 h-full overflow-y-auto">
               <div className="space-y-4">
                 {messages.map((message) => (
                   <div
@@ -657,21 +706,30 @@ export default function Conversation() {
                     )}
                   >
                     {message.role === "assistant" && (
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-info flex items-center justify-center flex-shrink-0">
-                        <Sparkles className="w-4 h-4 text-white" />
+                      <div className="w-9 h-9 rounded-full orb-aqua border border-white/90 flex items-center justify-center flex-shrink-0 shadow-sm mt-1">
+                        <Sparkles className="w-4 h-4 text-white drop-shadow-sm" />
                       </div>
                     )}
                     
                     <div className={cn(
-                      "max-w-[80%] space-y-2",
+                      "max-w-[85%] md:max-w-[80%] space-y-2",
                       message.role === "user" && "text-right"
                     )}>
+                      {/* Speaker label */}
+                      <div className="text-[11px] font-display font-semibold text-[#3c494b]/80 px-2 flex items-center gap-1.5 justify-start">
+                        {message.role === "assistant" ? (
+                          <span>Emma · AI Tutor</span>
+                        ) : (
+                          <span className="ml-auto">You · Learner</span>
+                        )}
+                      </div>
+
                       <div
                         className={cn(
-                          "inline-block p-4 rounded-2xl",
+                          "inline-block p-4.5 rounded-3xl backdrop-blur-xl border transition-all text-sm leading-relaxed",
                           message.role === "assistant"
-                            ? "bg-secondary rounded-tl-sm"
-                            : "bg-primary text-white rounded-tr-sm"
+                            ? "bg-white/85 text-[#0b3b4a] border-white/95 rounded-tl-sm shadow-sm"
+                            : "btn-gel-aqua text-white rounded-tr-sm shadow-aqua-sm border-white/60 font-medium"
                         )}
                       >
                         {message.role === "assistant" ? (
@@ -680,21 +738,27 @@ export default function Conversation() {
                           <p className="whitespace-pre-wrap">{message.content}</p>
                         )}
                         {message.role === "assistant" && (
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className={cn("h-6 w-6 mt-2 opacity-60 hover:opacity-100", isPlaying && "text-primary opacity-100")}
-                            onClick={() => speakMessage(message.content)}
-                            disabled={isSpeaking}
-                          >
-                            {isSpeaking ? (
-                              <Loader2 className="w-4 h-4 animate-spin" />
-                            ) : isPlaying ? (
-                              <Square className="w-4 h-4" />
-                            ) : (
-                              <Volume2 className="w-4 h-4" />
-                            )}
-                          </Button>
+                          <div className="mt-2 pt-2 border-t border-white/60 flex items-center gap-2">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className={cn(
+                                "h-7 px-2.5 rounded-full text-xs font-display font-semibold transition-all",
+                                isPlaying ? "btn-gel-aqua text-white shadow-aqua-sm" : "bg-white/70 hover:bg-white text-[#0b3b4a] border border-white"
+                              )}
+                              onClick={() => speakMessage(message.content)}
+                              disabled={isSpeaking}
+                            >
+                              {isSpeaking ? (
+                                <Loader2 className="w-3.5 h-3.5 animate-spin mr-1" />
+                              ) : isPlaying ? (
+                                <Square className="w-3.5 h-3.5 mr-1" />
+                              ) : (
+                                <Volume2 className="w-3.5 h-3.5 mr-1 text-primary" />
+                              )}
+                              <span>Listen replay</span>
+                            </Button>
+                          </div>
                         )}
                       </div>
                       
@@ -702,12 +766,13 @@ export default function Conversation() {
                       {message.role === "user" && message.pronunciationScore !== undefined && (
                         <div className="flex justify-end">
                           <div className={cn(
-                            "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-background border",
-                            getPronunciationFeedback(message.pronunciationScore).color
+                            "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-display font-semibold backdrop-blur-md border shadow-sm",
+                            getPronunciationFeedback(message.pronunciationScore).color,
+                            "bg-white/85 border-white"
                           )}>
                             <span>{getPronunciationFeedback(message.pronunciationScore).emoji}</span>
-                            <span>Pronunciation: {Math.round(message.pronunciationScore * 100)}%</span>
-                            <span className="text-muted-foreground">
+                            <span className="text-[#0b3b4a]">Pronunciation: {Math.round(message.pronunciationScore * 100)}%</span>
+                            <span className="text-[#3c494b]/70">
                               ({getPronunciationFeedback(message.pronunciationScore).label})
                             </span>
                           </div>
@@ -719,11 +784,11 @@ export default function Conversation() {
                 
                 {isLoading && messages.length === 0 && (
                   <div className="flex gap-3">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-info flex items-center justify-center flex-shrink-0">
+                    <div className="w-9 h-9 rounded-full orb-aqua flex items-center justify-center flex-shrink-0 shadow-sm">
                       <Loader2 className="w-4 h-4 text-white animate-spin" />
                     </div>
-                    <div className="bg-secondary rounded-2xl rounded-tl-sm p-4">
-                      <p className="text-muted-foreground">Thinking...</p>
+                    <div className="bg-white/85 rounded-3xl rounded-tl-sm p-4 border border-white/90 shadow-sm">
+                      <p className="text-xs font-semibold text-[#0b3b4a]">Connecting with AI Partner...</p>
                     </div>
                   </div>
                 )}
@@ -735,36 +800,43 @@ export default function Conversation() {
 
           {/* Pronunciation Score Preview */}
           {lastPronunciationScore !== null && input && (
-            <div className="mt-4 flex justify-center">
+            <div className="mt-3 flex justify-center">
               <div className={cn(
-                "inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-secondary border",
+                "inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-display font-bold bg-white/90 border border-white shadow-aqua-sm",
                 getPronunciationFeedback(lastPronunciationScore).color
               )}>
-                <span className="text-lg">{getPronunciationFeedback(lastPronunciationScore).emoji}</span>
+                <span className="text-base">{getPronunciationFeedback(lastPronunciationScore).emoji}</span>
                 <span>Pronunciation Score: {Math.round(lastPronunciationScore * 100)}%</span>
-                <span className="text-muted-foreground">
+                <span className="text-[#3c494b]/80">
                   - {getPronunciationFeedback(lastPronunciationScore).label}
                 </span>
               </div>
             </div>
           )}
 
-          {/* Input */}
-          <div className="mt-4 flex gap-2">
+          {/* Floating Control Dock with 3D Mic Orb */}
+          <div className="mt-3 p-2 rounded-full aero-glass border-white/90 shadow-card-hover flex items-center gap-2">
             <Button
+              type="button"
               variant="outline"
               size="icon"
-              className={cn(isRecording && "bg-destructive text-white animate-pulse")}
+              className={cn(
+                "w-11 h-11 rounded-full transition-all flex-shrink-0 shadow-sm",
+                isRecording 
+                  ? "bg-rose-500 text-white animate-pulse shadow-[0_0_16px_rgba(244,63,94,0.6)] border-white" 
+                  : "orb-aqua border border-white/90 text-white hover:scale-105"
+              )}
               onClick={toggleRecording}
+              title={isRecording ? "Stop recording" : "Voice input"}
             >
-              {isRecording ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
+              {isRecording ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5 drop-shadow-sm" />}
             </Button>
             <Input
               placeholder={isRecording ? "🎤 Listening... speak in English" : "Type your message in English..."}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={handleKeyPress}
-              className="flex-1"
+              className="flex-1 bg-white/70 border-white/90 shadow-none text-sm text-[#091f21] placeholder:text-[#3c494b]/60"
               disabled={isLoading}
             />
             <Button 
@@ -772,11 +844,13 @@ export default function Conversation() {
               size="icon" 
               onClick={handleSend} 
               disabled={!input.trim() || isLoading}
+              className="w-11 h-11 rounded-full btn-gel-aqua shadow-aqua-sm flex-shrink-0"
+              title="Send message"
             >
               {isLoading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
               ) : (
-                <Send className="w-5 h-5" />
+                <Send className="w-4 h-4" />
               )}
             </Button>
           </div>
@@ -789,30 +863,30 @@ export default function Conversation() {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="container py-8">
+      <main className="container py-8 max-w-6xl mx-auto px-4">
         <DemoBanner />
         {/* Back Button & Title */}
         <div className="mb-8">
           <Button
             variant="ghost"
             size="sm"
-            className="mb-4"
+            className="mb-4 rounded-full bg-white/70 backdrop-blur-md border border-white/80 text-foreground hover:bg-white/90 shadow-sm"
             onClick={() => navigate("/")}
           >
-            <ArrowLeft className="w-4 h-4 mr-2" />
+            <ArrowLeft className="w-4 h-4 mr-2 text-primary" />
             Volver al Dashboard
           </Button>
           
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-info flex items-center justify-center">
-                <Sparkles className="w-8 h-8 text-white" />
+              <div className="w-16 h-16 rounded-3xl orb-aqua flex items-center justify-center shadow-aqua">
+                <Sparkles className="w-8 h-8 text-white drop-shadow-sm" />
               </div>
               <div>
-                <h1 className="font-display font-bold text-3xl text-foreground">
+                <h1 className="font-display font-bold text-3xl text-foreground text-shadow-sm">
                   AI Conversation
                 </h1>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground font-medium">
                   Practice with your virtual tutor 24/7 with AI-powered instant correction
                 </p>
               </div>
@@ -821,9 +895,9 @@ export default function Conversation() {
               <Button
                 variant="outline"
                 onClick={() => navigate('/conversation/history')}
-                className="gap-2"
+                className="gap-2 btn-gel-white rounded-full self-start sm:self-auto"
               >
-                <History className="w-4 h-4" />
+                <History className="w-4 h-4 text-primary" />
                 History
               </Button>
             )}
@@ -834,8 +908,8 @@ export default function Conversation() {
         <GrammarTips />
 
         {/* Level Filter */}
-        <div className="mb-6">
-          <h2 className="font-display font-semibold text-lg mb-3">Filter by Level</h2>
+        <div className="mb-6 aero-card rounded-3xl p-5">
+          <h2 className="font-display font-semibold text-lg text-foreground mb-3">Filter by Level</h2>
           <div className="flex flex-wrap gap-2">
             {levels.map((level) => (
               <Button
@@ -843,44 +917,52 @@ export default function Conversation() {
                 variant={selectedLevel === level ? "default" : "outline"}
                 size="sm"
                 onClick={() => setSelectedLevel(level)}
-                className="min-w-[60px]"
+                className={`min-w-[60px] rounded-full transition-all ${
+                  selectedLevel === level 
+                    ? "btn-gel-aqua font-bold text-white shadow-aqua-sm" 
+                    : "btn-gel-white text-foreground hover:border-primary/40"
+                }`}
               >
                 {level}
               </Button>
             ))}
           </div>
-          <p className="text-sm text-muted-foreground mt-2">
+          <p className="text-xs text-muted-foreground font-semibold mt-3">
             {filteredScenarios.length} scenario{filteredScenarios.length !== 1 ? 's' : ''} available
           </p>
         </div>
 
         {/* Scenario Selection */}
-        <h2 className="font-display font-semibold text-lg mb-4">Choose a Scenario</h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <h2 className="font-display font-bold text-xl text-foreground mb-4">Choose a Scenario</h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {filteredScenarios.map((scenario) => (
             <Card
               key={scenario.id}
-              className="group cursor-pointer hover:shadow-lg transition-all duration-300"
+              className="group cursor-pointer aero-card rounded-3xl hover:shadow-aqua hover:-translate-y-1 transition-all duration-300 overflow-hidden"
               onClick={() => handleStartScenario(scenario.id)}
             >
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-white to-cyan-50 border border-white/80 shadow-aqua-sm flex items-center justify-center text-3xl group-hover:scale-110 group-hover:shadow-aqua transition-all flex-shrink-0">
                     {scenario.icon}
                   </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <h3 className="font-display font-semibold text-lg group-hover:text-primary transition-colors">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                      <h3 className="font-display font-bold text-base text-foreground group-hover:text-primary transition-colors truncate">
                         {scenario.title}
                       </h3>
-                      <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-medium">
+                      <span className="pill-bubble-aqua text-[11px] font-bold px-2.5 py-0.5 rounded-full flex-shrink-0">
                         {scenario.level}
                       </span>
                     </div>
-                    <p className="text-sm text-muted-foreground mt-1">
+                    <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
                       {scenario.description}
                     </p>
-                    <Button variant="outline" size="sm" className="mt-4 group-hover:bg-primary group-hover:text-white transition-colors">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="mt-4 w-full btn-gel-white group-hover:btn-gel-aqua group-hover:text-white transition-all text-xs font-semibold rounded-full"
+                    >
                       Start Conversation
                     </Button>
                   </div>
@@ -892,16 +974,16 @@ export default function Conversation() {
 
         {/* Login prompt for saving history */}
         {!user && (
-          <Card className="mt-8 border-primary/20 bg-primary/5">
+          <Card className="mt-8 aero-card rounded-3xl border-primary/30 bg-gradient-to-r from-primary/10 via-white/80 to-accent/10 shadow-aqua-sm">
             <CardContent className="p-6">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <h3 className="font-display font-semibold mb-1">💾 Save Your Progress</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <h3 className="font-display font-bold text-base text-foreground mb-1">💾 Save Your Progress</h3>
+                  <p className="text-xs text-muted-foreground">
                     Sign in to save your conversations and view your practice history
                   </p>
                 </div>
-                <Button onClick={() => navigate('/auth')}>
+                <Button onClick={() => navigate('/auth')} className="btn-gel-aqua rounded-full px-6">
                   Create Free Account
                 </Button>
               </div>
@@ -910,15 +992,32 @@ export default function Conversation() {
         )}
 
         {/* Tips */}
-        <Card className="mt-8">
+        <Card className="mt-8 aero-card rounded-3xl">
           <CardContent className="p-6">
-            <h3 className="font-display font-semibold mb-4">💡 Practice Tips</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>• Try writing complete sentences, not just single words</li>
-              <li>• Don't worry about mistakes, the AI tutor will correct you kindly</li>
-              <li>• Use the audio button to hear the correct pronunciation</li>
-              <li>• Practice at least 10 minutes a day to improve your fluency</li>
-              <li>• The AI adapts to your level configured in Settings</li>
+            <h3 className="font-display font-bold text-foreground mb-4 flex items-center gap-2">
+              <span className="text-xl">💡</span> Practice Tips
+            </h3>
+            <ul className="space-y-2.5 text-xs text-muted-foreground font-medium">
+              <li className="flex items-start gap-2">
+                <span className="text-primary font-bold">•</span>
+                <span>Try writing complete sentences, not just single words</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary font-bold">•</span>
+                <span>Don't worry about mistakes, the AI tutor will correct you kindly</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary font-bold">•</span>
+                <span>Use the audio button to hear the correct pronunciation</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary font-bold">•</span>
+                <span>Practice at least 10 minutes a day to improve your fluency</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary font-bold">•</span>
+                <span>The AI adapts to your level configured in Settings</span>
+              </li>
             </ul>
           </CardContent>
         </Card>

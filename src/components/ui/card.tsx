@@ -4,16 +4,16 @@ import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const cardVariants = cva(
-  "rounded-xl border bg-card text-card-foreground transition-all duration-300",
+  "rounded-3xl border border-white/85 bg-white/75 backdrop-blur-xl text-card-foreground shadow-[0_10px_30px_-5px_rgba(38,198,218,0.15),inset_0_1.5px_1px_rgba(255,255,255,0.95)] transition-all duration-300",
   {
     variants: {
       variant: {
-        default: "shadow-sm hover:shadow-md",
-        elevated: "shadow-lg hover:shadow-xl border-0",
-        interactive: "shadow-sm hover:shadow-md hover:-translate-y-1 cursor-pointer",
-        glass: "bg-card/80 backdrop-blur-xl border-border/50",
-        gradient: "border-0 bg-gradient-to-br from-card to-secondary/30",
-        module: "shadow-sm hover:shadow-lg hover:-translate-y-1 cursor-pointer border-2 border-transparent hover:border-primary/20",
+        default: "hover:shadow-[0_14px_34px_-4px_rgba(38,198,218,0.22),inset_0_1.5px_1px_rgba(255,255,255,1)]",
+        elevated: "bg-white/85 backdrop-blur-2xl shadow-[0_16px_38px_-4px_rgba(38,198,218,0.28),inset_0_2px_1px_rgba(255,255,255,1)] hover:shadow-[0_20px_44px_-4px_rgba(38,198,218,0.35),inset_0_2px_1px_rgba(255,255,255,1)]",
+        interactive: "hover:shadow-[0_16px_38px_-4px_rgba(38,198,218,0.28),inset_0_1.5px_1px_rgba(255,255,255,1)] hover:-translate-y-1 cursor-pointer active:translate-y-0",
+        glass: "bg-white/70 backdrop-blur-2xl border-white/90 shadow-[0_10px_30px_-5px_rgba(38,198,218,0.18),inset_0_1.5px_1px_rgba(255,255,255,0.95)]",
+        gradient: "bg-gradient-to-br from-white/90 via-white/80 to-[#e1f8fb]/80 backdrop-blur-xl border-white/90 shadow-[0_10px_30px_-5px_rgba(38,198,218,0.16),inset_0_1.5px_1px_rgba(255,255,255,0.95)]",
+        module: "hover:shadow-[0_16px_36px_-4px_rgba(38,198,218,0.28),inset_0_1.5px_1px_rgba(255,255,255,1)] hover:-translate-y-1 cursor-pointer border border-white/85 hover:border-primary/50 bg-white/80 backdrop-blur-xl",
       },
     },
     defaultVariants: {

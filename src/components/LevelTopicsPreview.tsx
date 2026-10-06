@@ -75,41 +75,43 @@ export function LevelTopicsPreview({ level }: LevelTopicsPreviewProps) {
   const grammarExercises = getGrammarExercisesByLevel(level);
 
   return (
-    <Card className="border-2 animate-fade-in">
-      <CardHeader className="pb-2">
+    <Card className="border-white/90 aero-glass shadow-card animate-fade-in rounded-3xl">
+      <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2.5">
             <span className={cn(
-              "px-3 py-1 rounded-lg text-white font-bold",
+              "px-3.5 py-1 rounded-full text-white font-display font-extrabold text-sm shadow-sm",
               getLevelColor(level)
             )}>
               {level}
             </span>
-            <span>Level Content</span>
+            <span className="font-display font-bold text-xl text-[#0b3b4a]">Level Content</span>
           </CardTitle>
           <Button 
             variant="outline" 
             size="sm"
             onClick={() => navigate(`/curriculum?level=${level}`)}
-            className="gap-1"
+            className="gap-1.5 rounded-full border-white/80 bg-white/80 hover:bg-white text-[#0b3b4a] shadow-sm font-semibold"
           >
-            Full Curriculum <ChevronRight className="w-4 h-4" />
+            Full Curriculum <ChevronRight className="w-4 h-4 text-primary" />
           </Button>
         </div>
       </CardHeader>
       
       <CardContent>
         {/* Quick Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
           {stats.map((stat) => (
             <div 
               key={stat.label}
-              className="flex items-center gap-3 p-3 rounded-lg bg-secondary/50"
+              className="flex items-center gap-3 p-3.5 rounded-2xl bg-white/70 border border-white/80 shadow-sm"
             >
-              <stat.icon className={cn("w-5 h-5", stat.color)} />
+              <div className="w-10 h-10 rounded-xl bg-[#e1f8fb] border border-white flex items-center justify-center flex-shrink-0 shadow-sm">
+                <stat.icon className={cn("w-5 h-5", stat.color)} />
+              </div>
               <div>
-                <p className="text-lg font-bold">{stat.value}</p>
-                <p className="text-xs text-muted-foreground">{stat.label}</p>
+                <p className="text-lg font-display font-bold text-[#0b3b4a]">{stat.value}</p>
+                <p className="text-xs font-semibold text-[#3c494b]/80">{stat.label}</p>
               </div>
             </div>
           ))}
@@ -250,11 +252,11 @@ export function LevelTopicsPreview({ level }: LevelTopicsPreviewProps) {
         </Tabs>
         
         {/* Quick Actions */}
-        <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t">
+        <div className="flex flex-wrap gap-2.5 mt-5 pt-4 border-t border-white/60">
           <Button 
             size="sm" 
             onClick={() => navigate(`/grammar?level=${level}`)}
-            className="gap-1"
+            className="gap-1.5 btn-gel-aqua shadow-aqua-sm"
           >
             <BookOpen className="w-4 h-4" /> Practice Grammar
           </Button>
@@ -262,17 +264,17 @@ export function LevelTopicsPreview({ level }: LevelTopicsPreviewProps) {
             size="sm" 
             variant="outline"
             onClick={() => navigate(`/vocabulary?level=${level}`)}
-            className="gap-1"
+            className="gap-1.5 rounded-full border-white/80 bg-white/80 hover:bg-white text-[#0b3b4a] shadow-sm font-semibold"
           >
-            <Lightbulb className="w-4 h-4" /> Learn Vocabulary
+            <Lightbulb className="w-4 h-4 text-warning" /> Learn Vocabulary
           </Button>
           <Button 
             size="sm" 
             variant="outline"
             onClick={() => navigate(`/practice?level=${level}`)}
-            className="gap-1"
+            className="gap-1.5 rounded-full border-white/80 bg-white/80 hover:bg-white text-[#0b3b4a] shadow-sm font-semibold"
           >
-            <PenTool className="w-4 h-4" /> Mixed Practice
+            <PenTool className="w-4 h-4 text-primary" /> Mixed Practice
           </Button>
         </div>
       </CardContent>

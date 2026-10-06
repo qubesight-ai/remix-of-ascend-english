@@ -61,37 +61,47 @@ export function Header({ children }: HeaderProps) {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 w-full border-b border-white/70 bg-white/70 backdrop-blur-2xl shadow-[0_4px_24px_rgba(38,198,218,0.1)]">
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-3">
           {children}
-          <button className="lg:hidden p-2 hover:bg-secondary rounded-lg">
-            <Menu className="w-5 h-5" />
+          <button className="lg:hidden p-2 hover:bg-white/70 rounded-full transition-colors">
+            <Menu className="w-5 h-5 text-[#0b3b4a]" />
           </button>
           <button 
-            className="flex items-center gap-2"
+            className="flex items-center gap-2.5 group text-left"
             onClick={() => navigate("/")}
+            title="Luma - Learn brighter."
           >
-            <div className="w-9 h-9 rounded-xl gradient-primary flex items-center justify-center">
-              <span className="text-white font-bold text-lg">T</span>
+            <div className="w-10 h-10 rounded-2xl orb-aqua flex items-center justify-center shadow-aqua-sm group-hover:scale-105 transition-all relative overflow-hidden flex-shrink-0">
+              <span className="text-white font-display font-black text-xl drop-shadow-md">L</span>
+              <div className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-white blur-[0.3px] opacity-90 animate-pulse"></div>
             </div>
-            <span className="font-display font-bold text-xl hidden sm:block">
-              Tem <span className="text-primary">Teaching</span>
-            </span>
+            <div className="flex flex-col">
+              <div className="flex items-center gap-1.5">
+                <span className="font-display font-black text-xl leading-none text-[#0b3b4a] tracking-tight group-hover:text-primary transition-colors">
+                  Luma
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-primary/80 animate-ping hidden sm:inline-block"></span>
+              </div>
+              <span className="text-[10px] font-bold text-primary tracking-wide hidden sm:block mt-0.5 opacity-90">
+                Learn brighter.
+              </span>
+            </div>
           </button>
         </div>
 
         {/* Navigation */}
-        <nav className="hidden lg:flex items-center gap-1">
+        <nav className="hidden lg:flex items-center gap-1.5 p-1 rounded-full bg-white/50 border border-white/80 backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_2px_8px_rgba(38,198,218,0.08)]">
           {navItems.map((item) => (
             <button
               key={item.path}
               onClick={() => navigate(item.path)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              className={`px-4 py-1.5 rounded-full text-xs font-display font-semibold transition-all ${
                 location.pathname === item.path 
-                  ? 'bg-primary/10 text-primary' 
-                  : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
+                  ? 'btn-gel-aqua text-white shadow-aqua-sm' 
+                  : 'text-[#0b3b4a] hover:bg-white/80 hover:text-primary'
               }`}
             >
               {item.label}
@@ -101,59 +111,59 @@ export function Header({ children }: HeaderProps) {
 
         {/* Right side */}
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" className="relative">
-            <Bell className="w-5 h-5" />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-accent rounded-full" />
+          <Button variant="ghost" size="icon" className="relative rounded-full bg-white/60 hover:bg-white/90 border border-white/80 shadow-[0_2px_8px_rgba(38,198,218,0.08)]">
+            <Bell className="w-4 h-4 text-[#0b3b4a]" />
+            <span className="absolute top-2 right-2 w-2 h-2 bg-[#69f0ae] rounded-full shadow-[0_0_8px_#69f0ae] animate-pulse" />
           </Button>
-          <Button variant="ghost" size="icon" onClick={() => navigate("/settings")}>
-            <Settings className="w-5 h-5" />
+          <Button variant="ghost" size="icon" onClick={() => navigate("/settings")} className="rounded-full bg-white/60 hover:bg-white/90 border border-white/80 shadow-[0_2px_8px_rgba(38,198,218,0.08)]">
+            <Settings className="w-4 h-4 text-[#0b3b4a]" />
           </Button>
           
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center ml-2 cursor-pointer hover:bg-primary/20 transition-colors">
-                  <span className="text-primary font-medium text-sm">
+                <button className="w-10 h-10 rounded-full bg-gradient-to-br from-[#26c6da] to-[#00acc1] border-2 border-white/90 shadow-aqua-sm flex items-center justify-center ml-2 cursor-pointer hover:scale-105 transition-all">
+                  <span className="text-white font-display font-bold text-sm drop-shadow-sm">
                     {user.email?.charAt(0).toUpperCase()}
                   </span>
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56 bg-popover">
-                <div className="px-2 py-1.5">
-                  <p className="text-sm font-medium">{isDemoUser ? 'Demo User' : user.email}</p>
+              <DropdownMenuContent align="end" className="w-56 aero-glass border-white/90">
+                <div className="px-3 py-2">
+                  <p className="text-sm font-display font-semibold text-[#0b3b4a]">{isDemoUser ? 'Demo User' : user.email}</p>
                   {isDemoUser && (
-                    <div className="flex items-center gap-1 mt-1">
-                      <Eye className="w-3 h-3 text-muted-foreground" />
-                      <span className="text-xs text-muted-foreground">Read-only mode</span>
+                    <div className="flex items-center gap-1.5 mt-1">
+                      <Eye className="w-3 h-3 text-[#3c494b]" />
+                      <span className="text-xs text-[#3c494b]">Read-only mode</span>
                     </div>
                   )}
                 </div>
-                <DropdownMenuSeparator />
+                <DropdownMenuSeparator className="bg-white/60" />
                 {isAdmin && !isDemoUser && (
-                  <DropdownMenuItem onClick={() => navigate('/admin/users')}>
-                    <Shield className="w-4 h-4 mr-2" />
+                  <DropdownMenuItem onClick={() => navigate('/admin/users')} className="rounded-xl cursor-pointer">
+                    <Shield className="w-4 h-4 mr-2 text-primary" />
                     Admin Panel
                   </DropdownMenuItem>
                 )}
                 {isAdmin && !isDemoUser && (
-                  <DropdownMenuItem onClick={() => navigate('/admin/progress')}>
-                    <Shield className="w-4 h-4 mr-2" />
+                  <DropdownMenuItem onClick={() => navigate('/admin/progress')} className="rounded-xl cursor-pointer">
+                    <Shield className="w-4 h-4 mr-2 text-primary" />
                     Teacher Dashboard
                   </DropdownMenuItem>
                 )}
-                <DropdownMenuItem onClick={() => navigate('/my-progress')}>
+                <DropdownMenuItem onClick={() => navigate('/my-progress')} className="rounded-xl cursor-pointer">
                   My Progress
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate('/conversation/history')}>
+                <DropdownMenuItem onClick={() => navigate('/conversation/history')} className="rounded-xl cursor-pointer">
                   Conversation History
                 </DropdownMenuItem>
                 {!isDemoUser && (
-                  <DropdownMenuItem onClick={() => navigate('/settings')}>
+                  <DropdownMenuItem onClick={() => navigate('/settings')} className="rounded-xl cursor-pointer">
                     Settings
                   </DropdownMenuItem>
                 )}
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleSignOut} className="text-destructive">
+                <DropdownMenuSeparator className="bg-white/60" />
+                <DropdownMenuItem onClick={handleSignOut} className="text-destructive rounded-xl cursor-pointer">
                   <LogOut className="w-4 h-4 mr-2" />
                   Sign Out
                 </DropdownMenuItem>
@@ -164,7 +174,7 @@ export function Header({ children }: HeaderProps) {
               variant="default"
               size="sm"
               onClick={() => navigate('/auth')}
-              className="ml-2"
+              className="ml-2 btn-gel-aqua shadow-aqua-sm"
             >
               Get Started
             </Button>

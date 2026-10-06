@@ -16,10 +16,12 @@ export default function SessionExpired() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-info flex items-center justify-center mx-auto mb-4">
-            <BookOpen className="w-8 h-8 text-white" />
+          <div className="w-16 h-16 rounded-3xl orb-aqua flex items-center justify-center mx-auto mb-4 shadow-aqua relative overflow-hidden group">
+            <span className="text-white font-display font-black text-3xl drop-shadow-md">L</span>
+            <div className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-white blur-[0.4px] opacity-90 animate-pulse"></div>
           </div>
-          <h1 className="font-display font-bold text-2xl text-foreground">Tem Teaching</h1>
+          <h1 className="font-display font-black text-3xl text-foreground text-shadow-sm tracking-tight">Luma</h1>
+          <p className="text-primary font-bold text-sm mt-0.5">Learn brighter.</p>
         </div>
 
         <Card className="text-center">

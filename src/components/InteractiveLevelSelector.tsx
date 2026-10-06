@@ -108,12 +108,12 @@ export function InteractiveLevelSelector({
 
   return (
     <div className="w-full">
-    <div className="flex items-center justify-between mb-4">
-        <p className="text-sm text-muted-foreground">
+      <div className="flex items-center justify-between mb-4">
+        <p className="text-sm font-medium text-[#3c494b]">
           Click on any level to explore its topics and exercises
         </p>
         <span className={cn(
-          "text-xs px-2 py-1 rounded-full text-white font-semibold",
+          "text-xs px-3 py-1 rounded-full text-white font-display font-bold shadow-sm",
           getLevelColor(selectedLevel)
         )}>
           Exploring: {selectedLevel} - {levels.find(l => l.id === selectedLevel)?.label}
@@ -121,7 +121,7 @@ export function InteractiveLevelSelector({
       </div>
       
       {/* Level Grid */}
-      <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
+      <div className="grid grid-cols-3 md:grid-cols-6 gap-3.5">
         {levels.map((level) => {
           const isSelected = selectedLevel === level.id;
           const isUserLevel = currentUserLevel === level.id;
@@ -131,43 +131,46 @@ export function InteractiveLevelSelector({
               key={level.id}
               onClick={() => onLevelSelect(level.id)}
               className={cn(
-                "relative flex flex-col items-center p-4 rounded-xl border-2 transition-all duration-200",
-                "hover:scale-105 hover:shadow-lg cursor-pointer",
+                "relative flex flex-col items-center p-4 rounded-3xl border transition-all duration-300",
+                "hover:scale-105 cursor-pointer backdrop-blur-md",
                 isSelected 
-                  ? `${getLevelBorderColor(level.id)} ring-4 shadow-md` 
-                  : "border-border hover:border-muted-foreground/50"
+                  ? "bg-white/95 border-white shadow-[0_12px_28px_rgba(38,198,218,0.35),inset_0_2px_1px_rgba(255,255,255,1)] ring-4 ring-primary/30" 
+                  : "bg-white/60 border-white/80 hover:bg-white/80 shadow-[0_4px_16px_rgba(38,198,218,0.08)]"
               )}
             >
-              {/* Level Badge */}
+              {/* Level Orb */}
               <div
                 className={cn(
-                  "w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg mb-2 transition-transform",
+                  "w-13 h-13 rounded-full flex items-center justify-center text-white font-display font-extrabold text-lg mb-2 transition-transform shadow-md relative overflow-hidden",
                   getLevelColor(level.id),
-                  isSelected && "scale-110"
+                  isSelected && "scale-110 shadow-aqua-sm"
                 )}
+                style={{ width: '3.25rem', height: '3.25rem' }}
               >
-                {level.id}
+                {/* Specular gloss crescent */}
+                <div className="absolute top-1 left-2 w-5 h-3 rounded-full bg-white/70 blur-[0.5px] pointer-events-none" />
+                <span className="relative z-10 drop-shadow-sm">{level.id}</span>
               </div>
               
               {/* Label */}
               <span className={cn(
-                "text-xs font-medium text-center",
-                isSelected ? "text-foreground" : "text-muted-foreground"
+                "text-xs font-display font-semibold text-center tracking-tight",
+                isSelected ? "text-[#0b3b4a]" : "text-[#3c494b]"
               )}>
                 {level.label}
               </span>
               
               {/* Selected indicator */}
               {isSelected && (
-                <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-success flex items-center justify-center">
-                  <Check className="w-3 h-3 text-white" />
+                <div className="absolute -top-1.5 -right-1.5 w-6 h-6 rounded-full bg-gradient-to-b from-[#69f0ae] to-[#43a047] border-2 border-white shadow-md flex items-center justify-center">
+                  <Check className="w-3.5 h-3.5 text-white stroke-[3]" />
                 </div>
               )}
 
               {/* User's current level indicator */}
               {isUserLevel && !isSelected && (
-                <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
-                  <span className="text-[10px] text-white font-bold">YOU</span>
+                <div className="absolute -top-1.5 -right-1.5 px-2 py-0.5 rounded-full btn-gel-aqua border border-white text-[10px] text-white font-display font-bold shadow-sm">
+                  YOU
                 </div>
               )}
             </button>
@@ -176,40 +179,40 @@ export function InteractiveLevelSelector({
       </div>
       
       {/* Selected Level Info with Actions */}
-      <div className="mt-4 p-4 rounded-xl bg-secondary/50 border">
+      <div className="mt-5 p-5 rounded-3xl bg-white/70 border border-white/90 shadow-[inset_0_1.5px_1px_rgba(255,255,255,0.95),0_8px_20px_rgba(38,198,218,0.1)] backdrop-blur-md">
         <div className="flex flex-col gap-4">
           {/* Level Title and Description */}
           <div className="flex items-start justify-between">
             <div>
-              <h3 className="font-semibold flex items-center gap-2">
+              <h3 className="font-display font-bold text-lg text-[#0b3b4a] flex items-center gap-2">
                 <span className={cn(
-                  "px-2 py-0.5 rounded text-white text-sm",
+                  "px-3 py-0.5 rounded-full text-white text-xs font-extrabold shadow-sm",
                   getLevelColor(selectedLevel)
                 )}>
                   {selectedLevel}
                 </span>
                 {levels.find(l => l.id === selectedLevel)?.label}
                 {isCurrentUserLevel && (
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-primary/20 text-primary font-normal">
+                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#e1f8fb] text-primary border border-primary/20 font-semibold">
                     Your current level
                   </span>
                 )}
               </h3>
-              <p className="text-sm text-muted-foreground mt-1">
+              <p className="text-sm text-[#3c494b] mt-1">
                 {levels.find(l => l.id === selectedLevel)?.description}
               </p>
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2.5">
             {/* Start Learning - Primary CTA */}
             <Button 
               onClick={handleStartLearning}
-              className="gap-2"
+              className="gap-2 btn-gel-aqua shadow-aqua-sm"
               size="sm"
             >
-              <Play className="w-4 h-4" />
+              <Play className="w-4 h-4 fill-white" />
               Start Learning {selectedLevel}
             </Button>
 
@@ -218,9 +221,9 @@ export function InteractiveLevelSelector({
               variant="outline" 
               size="sm"
               onClick={handlePracticeGrammar}
-              className="gap-1"
+              className="gap-1.5 rounded-full border-white/80 bg-white/80 hover:bg-white text-[#0b3b4a] shadow-sm font-semibold"
             >
-              <BookOpen className="w-4 h-4" />
+              <BookOpen className="w-4 h-4 text-primary" />
               Grammar
             </Button>
 
@@ -228,9 +231,9 @@ export function InteractiveLevelSelector({
               variant="outline" 
               size="sm"
               onClick={handleLearnVocabulary}
-              className="gap-1"
+              className="gap-1.5 rounded-full border-white/80 bg-white/80 hover:bg-white text-[#0b3b4a] shadow-sm font-semibold"
             >
-              <Lightbulb className="w-4 h-4" />
+              <Lightbulb className="w-4 h-4 text-warning" />
               Vocabulary
             </Button>
 
@@ -241,9 +244,9 @@ export function InteractiveLevelSelector({
                 size="sm"
                 onClick={handleSetAsMyLevel}
                 disabled={isSettingLevel}
-                className="gap-1 ml-auto"
+                className="gap-1.5 ml-auto rounded-full btn-gel-white border border-[#c7dee1] font-semibold text-xs"
               >
-                <Settings className="w-4 h-4" />
+                <Settings className="w-4 h-4 text-primary" />
                 {isSettingLevel ? "Setting..." : `Set ${selectedLevel} as My Level`}
               </Button>
             )}

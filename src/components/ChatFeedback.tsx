@@ -79,40 +79,40 @@ export function ChatFeedback({ content }: ChatFeedbackProps) {
           <Card 
             key={index} 
             className={cn(
-              "p-3 text-sm",
+              "p-3.5 text-sm rounded-2xl backdrop-blur-md border",
               item.type === "success" 
-                ? "bg-green-500/10 border-green-500/30" 
-                : "bg-orange-500/10 border-orange-500/30"
+                ? "bg-emerald-500/10 border-emerald-500/25 shadow-sm" 
+                : "bg-amber-500/10 border-amber-500/25 shadow-sm"
             )}
           >
             {item.type === "success" ? (
-              <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
+              <div className="flex items-center gap-2 text-emerald-700 font-semibold">
                 <span className="text-lg">✨</span>
-                <span className="font-medium">{item.successMessage}</span>
+                <span>{item.successMessage}</span>
               </div>
             ) : (
               <div className="space-y-2">
                 {/* Error and Correction */}
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="inline-flex items-center gap-1 px-2 py-1 rounded bg-red-500/20 text-red-600 dark:text-red-400 font-medium">
+                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-300 text-rose-700 font-semibold text-xs shadow-sm">
                     🔴 {item.error}
                   </span>
-                  <span className="text-muted-foreground">→</span>
-                  <span className="inline-flex items-center gap-1 px-2 py-1 rounded bg-green-500/20 text-green-600 dark:text-green-400 font-medium">
+                  <span className="text-[#3c494b] font-bold">→</span>
+                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-300 text-emerald-700 font-semibold text-xs shadow-sm">
                     ✅ {item.correction}
                   </span>
                 </div>
                 
                 {/* Explanation */}
                 {item.explanation && (
-                  <p className="text-muted-foreground pl-1">
+                  <p className="text-[#3c494b] text-xs pl-1 leading-relaxed">
                     📖 {item.explanation}
                   </p>
                 )}
                 
                 {/* Example */}
                 {item.example && (
-                  <p className="text-primary pl-1 italic">
+                  <p className="text-primary text-xs pl-1 font-semibold italic">
                     💡 Example: "{item.example}"
                   </p>
                 )}

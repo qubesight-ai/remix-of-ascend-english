@@ -141,12 +141,12 @@ const handler = async (req: Request): Promise<Response> => {
       <html>
         <head>
           <meta charset="utf-8">
-          <title>Exercise Completed - Tem Teaching</title>
+          <title>Exercise Completed - Luma</title>
         </head>
         <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9fafb;">
-          <div style="background: linear-gradient(135deg, #6366f1, #8b5cf6); padding: 30px; border-radius: 12px 12px 0 0; text-align: center;">
-            <h1 style="color: white; margin: 0; font-size: 24px;">📧 Tem Teaching</h1>
-            <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0;">Exercise Completion Report</p>
+          <div style="background: linear-gradient(135deg, #00acc1, #26c6da); padding: 30px; border-radius: 12px 12px 0 0; text-align: center;">
+            <h1 style="color: white; margin: 0; font-size: 24px;">✨ Luma</h1>
+            <p style="color: rgba(255,255,255,0.95); margin: 8px 0 0 0; font-weight: 600;">Learn brighter. — Exercise Report</p>
           </div>
           
           <div style="background: white; padding: 30px; border-radius: 0 0 12px 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
@@ -182,7 +182,7 @@ const handler = async (req: Request): Promise<Response> => {
             <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
             
             <p style="color: #6b7280; font-size: 12px; text-align: center;">
-              This is an automated message from Tem Teaching English Learning Platform.
+              This is an automated message from Luma — Learn brighter.
             </p>
           </div>
         </body>
@@ -203,7 +203,7 @@ const handler = async (req: Request): Promise<Response> => {
         "Authorization": `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: `Tem Teaching <${FROM_EMAIL}>`,
+        from: `Luma <${FROM_EMAIL}>`,
         to: recipients,
         subject: `${performanceEmoji} Your results: ${exerciseTitle} (${score}%) - ${level}`,
         html: emailHtml,

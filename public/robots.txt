@@ -1,4 +1,4 @@
-# Tem Teaching - English Learning Platform
+# Luma - Learn brighter.
 # https://temteaching.lovable.app
 
 User-agent: Googlebot

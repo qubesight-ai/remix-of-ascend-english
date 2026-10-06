@@ -184,38 +184,40 @@ export default function Practice() {
     const percentage = Math.round((score.correct / practiceQuestions.length) * 100);
     
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen">
         <Header />
-        <main className="container py-8">
-          <Card className="max-w-2xl mx-auto">
-            <CardContent className="text-center py-12">
-              <Trophy className="w-16 h-16 mx-auto mb-4 text-yellow-500" />
-              <h2 className="text-2xl font-bold mb-2">Session Complete!</h2>
-              <p className="text-muted-foreground mb-6">
+        <main className="container py-10">
+          <Card className="max-w-2xl mx-auto rounded-3xl aero-glass border-white/90 shadow-card-hover p-4">
+            <CardContent className="text-center py-10">
+              <div className="w-20 h-20 rounded-full orb-aqua border-2 border-white/90 flex items-center justify-center mx-auto mb-5 shadow-aqua-lg animate-float">
+                <Trophy className="w-10 h-10 text-white drop-shadow-md" />
+              </div>
+              <h2 className="text-3xl font-display font-extrabold text-[#0b3b4a] mb-2">Session Complete!</h2>
+              <p className="text-[#3c494b] font-medium mb-8">
                 Level {selectedLevel} Practice
               </p>
               
-              <div className="flex justify-center gap-8 mb-8">
-                <div className="text-center">
-                  <p className="text-3xl font-bold text-success">{score.correct}</p>
-                  <p className="text-sm text-muted-foreground">Correct</p>
+              <div className="flex justify-center gap-4 sm:gap-6 mb-8">
+                <div className="p-4 rounded-2xl bg-white/70 border border-white shadow-sm min-w-[90px]">
+                  <p className="text-3xl font-display font-bold text-success">{score.correct}</p>
+                  <p className="text-xs font-semibold text-[#3c494b]/80 mt-1">Correct</p>
                 </div>
-                <div className="text-center">
-                  <p className="text-3xl font-bold text-destructive">{score.incorrect}</p>
-                  <p className="text-sm text-muted-foreground">Incorrect</p>
+                <div className="p-4 rounded-2xl bg-white/70 border border-white shadow-sm min-w-[90px]">
+                  <p className="text-3xl font-display font-bold text-rose-500">{score.incorrect}</p>
+                  <p className="text-xs font-semibold text-[#3c494b]/80 mt-1">Incorrect</p>
                 </div>
-                <div className="text-center">
-                  <p className="text-3xl font-bold text-primary">{percentage}%</p>
-                  <p className="text-sm text-muted-foreground">Score</p>
+                <div className="p-4 rounded-2xl bg-white/70 border border-white shadow-sm min-w-[90px]">
+                  <p className="text-3xl font-display font-bold text-primary">{percentage}%</p>
+                  <p className="text-xs font-semibold text-[#3c494b]/80 mt-1">Score</p>
                 </div>
               </div>
 
-              <div className="flex gap-4 justify-center">
-                <Button variant="outline" onClick={() => navigate("/")}>
+              <div className="flex gap-3.5 justify-center">
+                <Button variant="outline" onClick={() => navigate("/")} className="btn-gel-white border-[#c7dee1]">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Dashboard
                 </Button>
-                <Button onClick={handleRestart}>
+                <Button onClick={handleRestart} className="btn-gel-aqua shadow-aqua-sm">
                   <Shuffle className="w-4 h-4 mr-2" />
                   New Session
                 </Button>
@@ -228,21 +230,21 @@ export default function Practice() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Header />
       <main className="container py-8">
         <div className="max-w-2xl mx-auto">
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
-            <Button variant="ghost" onClick={() => navigate("/")}>
+            <Button variant="ghost" onClick={() => navigate("/")} className="rounded-full bg-white/60 hover:bg-white/90 border border-white/80 shadow-sm text-[#0b3b4a]">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back
             </Button>
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-muted-foreground">Score:</span>
-              <span className="text-success font-medium">{score.correct}</span>
+            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 border border-white/90 shadow-sm">
+              <span className="text-xs font-semibold text-[#3c494b]">Score:</span>
+              <span className="text-emerald-600 font-display font-bold text-sm">{score.correct}</span>
               <span className="text-muted-foreground">/</span>
-              <span className="text-destructive font-medium">{score.incorrect}</span>
+              <span className="text-rose-500 font-display font-bold text-sm">{score.incorrect}</span>
             </div>
           </div>
 
@@ -255,8 +257,10 @@ export default function Practice() {
                 size="sm"
                 onClick={() => handleLevelChange(level)}
                 className={cn(
-                  "gap-1",
-                  selectedLevel === level && getLevelColor(level)
+                  "gap-1 rounded-full font-display font-bold",
+                  selectedLevel === level 
+                    ? "btn-gel-aqua text-white shadow-aqua-sm"
+                    : "bg-white/70 border-white/90 hover:bg-white text-[#0b3b4a]"
                 )}
               >
                 {level}
@@ -265,26 +269,26 @@ export default function Practice() {
           </div>
 
           {/* Progress */}
-          <div className="mb-6">
-            <div className="flex justify-between text-sm text-muted-foreground mb-2">
+          <div className="mb-6 p-4 rounded-3xl bg-white/60 border border-white/80 backdrop-blur-md shadow-sm">
+            <div className="flex justify-between text-xs font-semibold text-[#0b3b4a] mb-2">
               <span>Question {currentQuestionIndex + 1} of {practiceQuestions.length}</span>
               <span className={cn(
-                "px-2 py-0.5 rounded text-white text-xs",
+                "px-2.5 py-0.5 rounded-full text-white text-xs font-extrabold shadow-sm",
                 getLevelColor(selectedLevel)
               )}>
                 {selectedLevel}
               </span>
             </div>
-            <Progress value={progress} className="h-2" />
+            <Progress value={progress} className="h-3" />
           </div>
 
           {/* Question Card */}
-          <Card className="mb-6">
-            <CardContent className="pt-6">
-              <p className="text-xs text-muted-foreground mb-2 uppercase tracking-wide">
+          <Card className="mb-6 rounded-3xl aero-glass border-white/90 shadow-card">
+            <CardContent className="pt-7 pb-7 px-6 md:px-8">
+              <p className="text-xs font-display font-bold text-primary mb-2 uppercase tracking-wider">
                 {currentQuestion.category}
               </p>
-              <h3 className="text-xl font-semibold mb-6">{currentQuestion.question}</h3>
+              <h3 className="text-xl md:text-2xl font-display font-bold text-[#0b3b4a] mb-6 leading-snug">{currentQuestion.question}</h3>
 
               <div className="space-y-3">
                 {shuffledOptions.map((option) => {
@@ -297,20 +301,20 @@ export default function Practice() {
                       onClick={() => handleSelectAnswer(option)}
                       disabled={showExplanation}
                       className={cn(
-                        "w-full p-4 rounded-lg border text-left transition-all",
-                        !showExplanation && "hover:border-primary hover:bg-primary/5",
-                        showExplanation && isCorrectOption && "border-success bg-success/10",
-                        showExplanation && isSelected && !isCorrectOption && "border-destructive bg-destructive/10",
-                        !showExplanation && isSelected && "border-primary bg-primary/5"
+                        "w-full p-4 rounded-2xl border text-left transition-all duration-200 font-medium text-sm",
+                        !showExplanation && "bg-white/70 border-white/90 hover:border-primary/50 hover:bg-white/95 text-[#0b3b4a] shadow-sm hover:shadow-aqua-sm",
+                        showExplanation && isCorrectOption && "border-emerald-500 bg-gradient-to-r from-emerald-500/15 to-emerald-500/5 text-emerald-950 shadow-sm",
+                        showExplanation && isSelected && !isCorrectOption && "border-rose-400 bg-rose-500/10 text-rose-950",
+                        !showExplanation && isSelected && "border-primary bg-primary/10 text-primary shadow-aqua-sm"
                       )}
                     >
                       <div className="flex items-center justify-between">
                         <span>{option}</span>
                         {showExplanation && isCorrectOption && (
-                          <CheckCircle2 className="w-5 h-5 text-success" />
+                          <CheckCircle2 className="w-5 h-5 text-emerald-500" />
                         )}
                         {showExplanation && isSelected && !isCorrectOption && (
-                          <XCircle className="w-5 h-5 text-destructive" />
+                          <XCircle className="w-5 h-5 text-rose-500" />
                         )}
                       </div>
                     </button>
@@ -321,20 +325,22 @@ export default function Practice() {
               {/* Explanation */}
               {showExplanation && (
                 <div className={cn(
-                  "mt-6 p-4 rounded-lg",
-                  isCorrect ? "bg-success/10 border border-success/20" : "bg-destructive/10 border border-destructive/20"
+                  "mt-6 p-4 rounded-2xl border backdrop-blur-md",
+                  isCorrect 
+                    ? "bg-emerald-500/10 border-emerald-500/25 text-emerald-950" 
+                    : "bg-rose-500/10 border-rose-500/25 text-rose-950"
                 )}>
-                  <div className="flex items-start gap-2">
+                  <div className="flex items-start gap-2.5">
                     {isCorrect ? (
-                      <CheckCircle2 className="w-5 h-5 text-success mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
                     ) : (
-                      <XCircle className="w-5 h-5 text-destructive mt-0.5" />
+                      <XCircle className="w-5 h-5 text-rose-600 mt-0.5 flex-shrink-0" />
                     )}
                     <div>
-                      <p className="font-medium mb-1">
+                      <p className="font-display font-bold mb-1">
                         {isCorrect ? "Correct!" : "Incorrect"}
                       </p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm opacity-90 leading-relaxed">
                         {currentQuestion.explanation}
                       </p>
                     </div>
@@ -346,12 +352,12 @@ export default function Practice() {
 
           {/* Navigation */}
           <div className="flex justify-between">
-            <Button variant="outline" onClick={handleRestart}>
+            <Button variant="outline" onClick={handleRestart} className="btn-gel-white border-[#c7dee1]">
               <RotateCcw className="w-4 h-4 mr-2" />
               Restart
             </Button>
             {showExplanation && (
-              <Button onClick={handleNextQuestion}>
+              <Button onClick={handleNextQuestion} className="btn-gel-aqua shadow-aqua-sm">
                 {currentQuestionIndex < practiceQuestions.length - 1 ? (
                   <>
                     Next <ArrowRight className="w-4 h-4 ml-2" />

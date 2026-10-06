@@ -96,30 +96,32 @@ export default function Vocabulary() {
       <div className="min-h-screen bg-background">
         <Header />
         
-        <main className="container py-8">
+        <main className="container py-8 max-w-4xl mx-auto px-4">
           <Button
             variant="ghost"
             size="sm"
-            className="mb-6"
+            className="mb-6 rounded-full bg-white/70 backdrop-blur-md border border-white/80 text-foreground hover:bg-white/95 shadow-sm"
             onClick={handleBack}
           >
-            <ArrowLeft className="w-4 h-4 mr-2" />
+            <ArrowLeft className="w-4 h-4 mr-2 text-primary" />
             Back to categories
           </Button>
 
           <div className="max-w-2xl mx-auto">
             {/* Progress */}
-            <div className="mb-6">
+            <div className="mb-6 aero-card rounded-3xl p-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium">{selectedCategory.title}</span>
-                <span className="text-sm text-muted-foreground">
+                <span className="text-sm font-display font-bold text-foreground">{selectedCategory.title}</span>
+                <span className="pill-bubble-aqua text-xs font-bold px-2.5 py-0.5">
                   {currentWordIndex + 1} / {selectedCategory.words.length}
                 </span>
               </div>
-              <Progress 
-                value={((currentWordIndex + 1) / selectedCategory.words.length) * 100} 
-                className="h-2"
-              />
+              <div className="h-3 rounded-full liquid-tube p-0.5">
+                <div 
+                  className="h-full rounded-full bg-gradient-to-r from-primary to-cyan-400 transition-all duration-300"
+                  style={{ width: `${((currentWordIndex + 1) / selectedCategory.words.length) * 100}%` }}
+                ></div>
+              </div>
             </div>
 
             {/* Flashcard */}
@@ -129,39 +131,39 @@ export default function Vocabulary() {
             >
               <Card 
                 className={cn(
-                  "absolute inset-0 transition-all duration-500 backface-hidden",
-                  isFlipped ? "rotate-y-180 opacity-0" : ""
+                  "absolute inset-0 transition-all duration-500 backface-hidden aero-card rounded-3xl shadow-aqua border border-white/90 overflow-hidden",
+                  isFlipped ? "rotate-y-180 opacity-0 pointer-events-none" : ""
                 )}
               >
-                <CardContent className="h-full flex flex-col items-center justify-center p-8">
-                  <span className="text-xl font-display font-bold text-primary mb-4">
+                <CardContent className="h-full flex flex-col items-center justify-center p-8 text-center">
+                  <span className="text-xl font-display font-bold text-primary mb-4 text-shadow-sm">
                     {currentWord.definition}
                   </span>
-                  <div className="text-center space-y-2 mt-4">
-                    <p className="text-sm italic text-foreground">
+                  <div className="text-center space-y-2 mt-4 max-w-md">
+                    <p className="text-sm italic text-foreground font-medium">
                       "{currentWord.example}"
                     </p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-xs text-muted-foreground font-medium">
                       {currentWord.context}
                     </p>
                   </div>
-                  <p className="text-sm text-center text-muted-foreground mt-8">
+                  <div className="mt-8 pill-bubble-aqua text-xs font-semibold px-4 py-1.5 shadow-sm">
                     Tap to see the word
-                  </p>
+                  </div>
                 </CardContent>
               </Card>
 
               <Card 
                 className={cn(
-                  "absolute inset-0 transition-all duration-500 backface-hidden",
-                  isFlipped ? "" : "-rotate-y-180 opacity-0"
+                  "absolute inset-0 transition-all duration-500 backface-hidden aero-card rounded-3xl shadow-aqua border border-white/90 overflow-hidden",
+                  isFlipped ? "" : "-rotate-y-180 opacity-0 pointer-events-none"
                 )}
               >
-                <CardContent className="h-full flex flex-col items-center justify-center p-8">
+                <CardContent className="h-full flex flex-col items-center justify-center p-8 relative text-center">
                   <Button
                     variant="ghost"
                     size="icon"
-                    className={cn("absolute top-4 right-4", isPlaying && "text-primary")}
+                    className={cn("absolute top-5 right-5 w-11 h-11 rounded-full btn-gel-white", isPlaying && "text-primary border-primary")}
                     onClick={(e) => {
                       e.stopPropagation();
                       speakWord(currentWord.english);
@@ -169,20 +171,23 @@ export default function Vocabulary() {
                     disabled={isSpeaking}
                   >
                     {isSpeaking ? (
-                      <Loader2 className="w-5 h-5 animate-spin" />
+                      <Loader2 className="w-5 h-5 animate-spin text-primary" />
                     ) : isPlaying ? (
-                      <Square className="w-5 h-5" />
+                      <Square className="w-5 h-5 text-primary" />
                     ) : (
-                      <Volume2 className="w-5 h-5" />
+                      <Volume2 className="w-5 h-5 text-primary" />
                     )}
                   </Button>
                   
-                  <span className="text-4xl font-display font-bold text-foreground mb-2">
+                  <span className="text-4xl sm:text-5xl font-display font-black text-foreground mb-3 tracking-tight text-shadow-sm">
                     {currentWord.english}
                   </span>
-                  <span className="text-sm text-muted-foreground">
+                  <span className="pill-bubble text-sm font-semibold text-muted-foreground px-3 py-1 bg-white/70">
                     {currentWord.pronunciation}
                   </span>
+                  <p className="text-xs text-muted-foreground mt-8">
+                    Tap to flip back
+                  </p>
                 </CardContent>
               </Card>
             </div>
@@ -193,6 +198,7 @@ export default function Vocabulary() {
                 variant="outline"
                 onClick={handlePrevWord}
                 disabled={currentWordIndex === 0}
+                className="btn-gel-white rounded-full px-6"
               >
                 Previous
               </Button>
@@ -200,18 +206,20 @@ export default function Vocabulary() {
               <Button
                 variant="ghost"
                 size="icon"
+                className="w-12 h-12 rounded-full btn-gel-white"
                 onClick={() => {
                   setCurrentWordIndex(0);
                   setIsFlipped(false);
                 }}
               >
-                <RotateCcw className="w-5 h-5" />
+                <RotateCcw className="w-5 h-5 text-primary" />
               </Button>
               
               <Button
                 variant="default"
                 onClick={handleNextWord}
                 disabled={currentWordIndex === selectedCategory.words.length - 1}
+                className="btn-gel-aqua rounded-full px-6 text-white"
               >
                 Next
               </Button>
@@ -222,7 +230,7 @@ export default function Vocabulary() {
               <Button
                 variant="hero"
                 size="lg"
-                className="w-full mt-6"
+                className="w-full mt-6 btn-gel-green rounded-full py-6 font-display font-bold text-base text-white shadow-lg"
                 onClick={() => {
                   sendExerciseResultEmail({
                     exerciseType: "Vocabulary Flashcards",
@@ -249,28 +257,28 @@ export default function Vocabulary() {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="container py-8">
+      <main className="container py-8 max-w-6xl mx-auto px-4">
         {/* Back Button & Title */}
         <div className="mb-8">
           <Button
             variant="ghost"
             size="sm"
-            className="mb-4"
+            className="mb-4 rounded-full bg-white/70 backdrop-blur-md border border-white/80 text-foreground hover:bg-white/95 shadow-sm"
             onClick={() => navigate("/")}
           >
-            <ArrowLeft className="w-4 h-4 mr-2" />
+            <ArrowLeft className="w-4 h-4 mr-2 text-primary" />
             Back to Dashboard
           </Button>
           
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-level-a2 flex items-center justify-center">
-              <span className="text-3xl">💡</span>
+            <div className="w-16 h-16 rounded-3xl orb-aqua flex items-center justify-center shadow-aqua">
+              <span className="text-3xl drop-shadow-sm">💡</span>
             </div>
             <div>
-              <h1 className="font-display font-bold text-3xl text-foreground">
+              <h1 className="font-display font-bold text-3xl text-foreground text-shadow-sm">
                 Vocabulary
               </h1>
-              <p className="text-muted-foreground">
+              <p className="text-muted-foreground font-medium">
                 Expand your lexicon with flashcards and contextual exercises
               </p>
             </div>
@@ -278,8 +286,8 @@ export default function Vocabulary() {
         </div>
 
         {/* Level Selector */}
-        <div className="mb-6">
-          <h2 className="text-lg font-semibold mb-3">Select Level</h2>
+        <div className="mb-6 aero-card rounded-3xl p-5">
+          <h2 className="text-base font-display font-bold text-foreground mb-3">Select Level</h2>
           <div className="flex flex-wrap gap-2">
             {levels.map((level) => {
               const levelCategories = expandedVocabularyCategories.filter(c => c.level === level);
@@ -290,9 +298,10 @@ export default function Vocabulary() {
                   variant={selectedLevel === level ? "default" : "outline"}
                   onClick={() => setSelectedLevel(level)}
                   className={cn(
-                    "min-w-[80px]",
-                    selectedLevel === level && getLevelColor(level),
-                    selectedLevel === level && "text-white border-transparent"
+                    "min-w-[80px] rounded-full transition-all font-semibold",
+                    selectedLevel === level 
+                      ? "btn-gel-aqua text-white shadow-aqua-sm" 
+                      : "btn-gel-white text-foreground hover:border-primary/40"
                   )}
                 >
                   {level}
@@ -304,64 +313,64 @@ export default function Vocabulary() {
         </div>
 
         {/* Stats */}
-        <Card className="mb-8">
+        <Card className="mb-8 aero-card rounded-3xl">
           <CardContent className="p-6">
             <div className="grid grid-cols-3 gap-6 text-center">
-              <div>
-                <p className="text-3xl font-display font-bold text-foreground">0</p>
-                <p className="text-sm text-muted-foreground">Words learned</p>
+              <div className="p-3 bg-white/60 rounded-2xl border border-white/80 shadow-sm">
+                <p className="text-3xl font-display font-black text-foreground">0</p>
+                <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mt-1">Words learned</p>
               </div>
-              <div>
-                <p className="text-3xl font-display font-bold text-foreground">{filteredCategories.length}</p>
-                <p className="text-sm text-muted-foreground">Categories</p>
+              <div className="p-3 bg-white/60 rounded-2xl border border-white/80 shadow-sm">
+                <p className="text-3xl font-display font-black text-primary">{filteredCategories.length}</p>
+                <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mt-1">Categories</p>
               </div>
-              <div>
-                <p className="text-3xl font-display font-bold text-foreground">{levelWordCount}</p>
-                <p className="text-sm text-muted-foreground">Words in {selectedLevel}</p>
+              <div className="p-3 bg-white/60 rounded-2xl border border-white/80 shadow-sm">
+                <p className="text-3xl font-display font-black text-foreground">{levelWordCount}</p>
+                <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mt-1">Words in {selectedLevel}</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
         {/* Categories Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {filteredCategories.map((category) => {
             const progress = Math.round((category.learned / category.wordCount) * 100);
             
             return (
               <Card
                 key={category.id}
-                className="group hover:shadow-lg transition-all duration-300 cursor-pointer"
+                className="group hover:shadow-aqua hover:-translate-y-1 transition-all duration-300 cursor-pointer aero-card rounded-3xl overflow-hidden"
                 onClick={() => handleStartCategory(category)}
               >
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between mb-4">
-                    <div className="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-white to-cyan-50 border border-white/80 shadow-aqua-sm flex items-center justify-center text-3xl group-hover:scale-110 group-hover:shadow-aqua transition-all">
                       {category.icon}
                     </div>
-                    <span
-                      className={cn(
-                        "px-2 py-1 rounded-full text-xs font-medium text-white",
-                        getLevelColor(category.level)
-                      )}
-                    >
+                    <span className="pill-bubble-aqua text-xs font-bold px-3 py-1">
                       {category.level}
                     </span>
                   </div>
                   
-                  <h3 className="font-display font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
+                  <h3 className="font-display font-bold text-lg mb-1 group-hover:text-primary transition-colors">
                     {category.title}
                   </h3>
                   
-                  <div className="flex items-center justify-between text-sm text-muted-foreground mb-3">
+                  <div className="flex items-center justify-between text-xs text-muted-foreground font-semibold mb-3">
                     <span>{category.learned} / {category.wordCount} words</span>
-                    <span className="font-medium text-foreground">{progress}%</span>
+                    <span className="font-extrabold text-primary">{progress}%</span>
                   </div>
                   
-                  <Progress value={progress} className="h-2 mb-4" />
+                  <div className="h-2 rounded-full liquid-tube p-0.5 mb-4">
+                    <div 
+                      className="h-full rounded-full bg-gradient-to-r from-primary to-cyan-400"
+                      style={{ width: `${progress}%` }}
+                    ></div>
+                  </div>
                   
-                  <Button variant="outline" size="sm" className="w-full group-hover:bg-primary group-hover:text-white transition-colors">
-                    <Play className="w-4 h-4 mr-2" />
+                  <Button variant="outline" size="sm" className="w-full btn-gel-white group-hover:btn-gel-aqua group-hover:text-white transition-all rounded-full font-bold text-xs">
+                    <Play className="w-3.5 h-3.5 mr-2" />
                     Practice
                   </Button>
                 </CardContent>
