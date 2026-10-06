@@ -2,7 +2,7 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 const TEACHER_EMAIL = "temkhawk@gmail.com";
-const FROM_EMAIL = "noreply@temteaching.com";
+const FROM_EMAIL = Deno.env.get("RESEND_FROM_EMAIL") || "onboarding@resend.dev";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -181,7 +181,11 @@ const handler = async (req: Request): Promise<Response> => {
     
     if (!emailResponse.ok) {
       console.error("Resend API error:", emailResult);
-      throw new Error(`Failed to send email: ${JSON.stringify(emailResult)}`);
+      // Don't break the student's flow if the notification email fails
+      return new Response(JSON.stringify({ success: false, emailError: emailResult }), {
+        status: 200,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
     }
 
     console.log("Placement results email sent successfully:", emailResult);

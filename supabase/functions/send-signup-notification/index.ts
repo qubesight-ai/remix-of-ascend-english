@@ -10,7 +10,7 @@ const corsHeaders = {
 };
 
 const ADMIN_EMAIL = "temkhawk@gmail.com";
-const FROM_EMAIL = "noreply@temteaching.com";
+const FROM_EMAIL = Deno.env.get("RESEND_FROM_EMAIL") || "onboarding@resend.dev";
 
 interface SignupNotificationRequest {
   userEmail: string;
